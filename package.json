@@ -40,29 +40,10 @@
       "output": "dist"
     },
     "win": {
-      "target": [
-        "nsis",
-        "msix"
-      ],
+      "target": "nsis",
       "icon": "build/app-icon.png",
       "asarUnpack": [
         "yt-dlp.exe"
-      ]
-    },
-    "msix": {
-      "identityName": "com.burnttoasters.rosi",
-      "publisherDisplayName": "BurntToasters",
-      "publisher": "CN=BurntToasters",
-      "backgroundColor": "#ffffff",
-      "displayName": "Rosi",
-      "logo": "build/app-icon.png",
-      "languages": [
-        "en-US"
-      ],
-      "description": "Electron GUI for yt-dlp",
-      "website": "https://github.com/BurntToasters/rosi",
-      "capabilities": [
-        "internetClient"
       ]
     },
     "mac": {
