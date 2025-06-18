@@ -27,8 +27,8 @@
     "glob": "^11.0.1"
   },
   "build": {
-    "appId": "com.burnttoasters.rosi",
-    "productName": "Rosi",
+    "appId": "BurntToasters.ROSI",
+    "productName": "ROSI",
     "files": [
       "**/*",
       "!**/node_modules/*/{test,__tests__,tests}/**",
@@ -40,10 +40,29 @@
       "output": "dist"
     },
     "win": {
-      "target": "nsis",
+      "target": [
+        "nsis",
+        "msix"
+      ],
       "icon": "build/app-icon.png",
       "asarUnpack": [
         "yt-dlp.exe"
+      ]
+    },
+    "msix": {
+      "identityName": "BurntToasters.ROSI",
+      "publisher": "CN=BC0CB990-55E8-4580-97B7-1E2DAA4B44F6",
+      "publisherDisplayName": "BurntToasters",
+      "displayName": "ROSI",
+      "backgroundColor": "#ffffff",
+      "logo": "build/app-icon.png",
+      "languages": [
+        "en-US"
+      ],
+      "description": "Electron GUI for yt-dlp",
+      "website": "https://github.com/BurntToasters/rosi",
+      "capabilities": [
+        "internetClient"
       ]
     },
     "mac": {
