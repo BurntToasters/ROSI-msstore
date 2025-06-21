@@ -49,24 +49,15 @@
         "yt-dlp.exe"
       ]
     },
-    "appx": {
-      "identityName": "BurntToasters.ROSI",
-      "publisher": "CN=BC0CB990-55E8-4580-97B7-1E2DAA4B44F6",
-      "publisherDisplayName": "BurntToasters",
-      "displayName": "ROSI",
-      "backgroundColor": "#ffffff",
-      "languages": [
-        "en-US"
-      ],
-      "tileImages": {
-        "square44x44Logo": "build/Square44x44Logo.png",
-        "square71x71Logo": "build/Square71x71Logo.png",
-        "square150x150Logo": "build/Square150x150Logo.png",
-        "wide310x150Logo": "build/Wide310x150Logo.png",
-        "square310x310Logo": "build/Square310x310Logo.png",
-        "storeLogo": "build/StoreLogo.png"
-      }
-    },
+ "appx": {
+   "identityName": "BurntToasters.ROSI",
+   "publisher": "CN=BC0CB990-55E8-4580-97B7-1E2DAA4B44F6",
+   "publisherDisplayName": "BurntToasters",
+   "displayName":  "ROSI",
+   "backgroundColor": "#ffffff",
+   "minVersion":   "10.0.10240.0",
+   "maxVersionTested": "10.0.22621.0"
+ },
     "mac": {
       "target": "dmg",
       "icon": "build/app-icon.png",

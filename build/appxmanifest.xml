@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  IgnorableNamespaces="uap mp">
+
+  <!-- = Identity = -->
+  <Identity
+    Name="BurntToasters.ROSI"
+    Publisher="CN=BC0CB990-55E8-4580-97B7-1E2DAA4B44F6"
+    Version="1.1.4.0" />
+
+  <!-- = Properties = -->
+  <Properties>
+    <DisplayName>ROSI</DisplayName>
+    <PublisherDisplayName>BurntToasters</PublisherDisplayName>
+    <Logo>build/StoreLogo.png</Logo>
+  </Properties>
+
+  <!-- = Dependencies = -->
+  <Dependencies>
+    <TargetDeviceFamily
+      Name="Windows.Desktop"
+      MinVersion="10.0.17763.0"
+      MaxVersionTested="10.0.26100.0" />
+  </Dependencies>
+
+  <!-- = Resources = -->
+  <Resources>
+    <Resource Language="en-US" />
+  </Resources>
+
+  <!-- = Capabilities = -->
+  <Capabilities>
+    <!-- Allows outbound HTTP(S) calls -->
+    <Capability Name="internetClient" />
+  </Capabilities>
+
+  <!-- = Applications = -->
+  <Applications>
+    <Application
+      Id="App"
+      Executable="app/ROSI.exe"
+      EntryPoint="Windows.FullTrustApplication">
+
+      <uap:VisualElements
+        DisplayName="ROSI"
+        Description="Electron GUI for yt-dlp"
+        BackgroundColor="#ffffff"
+        Square44x44Logo="build/Square44x44Logo.png"
+        Square150x150Logo="build/Square150x150Logo.png">
+
+        <uap:DefaultTile
+          Wide310x150Logo="build/Wide310x150Logo.png"
+          Square310x310Logo="build/Square310x310Logo.png"/>
+
+        <uap:SplashScreen
+          Image="build/SplashScreen.png"/>
+
+      </uap:VisualElements>
+    </Application>
+  </Applications>
+
+</Package>
