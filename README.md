@@ -1,6 +1,8 @@
 # ROSI
 ROSI is an Electron GUI for yt-dlp
 
+### ⚠️ THIS IS THE MICROSOFT STORE VERSION OF ROSI. Extra tweaks are made to this version only to support ROSI being published to the microsoft store. To download the STANDALONE version binaries, please go to the [main repo](https://github.com/BurntToasters/ROSI).
+
 <img width="700" alt="ROSI" src="https://github.com/user-attachments/assets/52694114-57a3-487e-837b-6bf5d4960ba3" />
 
 ___
@@ -15,17 +17,12 @@ ___
 
 ROSI requires ffmpeg to be installed in your system and available in its PATH.
 Learn how to install ffmpeg: [https://help.rosie.run/installing-ffmpeg](https://help.rosie.run/installing-ffmpeg)
-
-- **MacOS:** `brew install ffmpeg`
 - **Windows:** `winget install ffmpeg`
-- **Linux:** 
-- - **Debian/Ubuntu:** `sudo apt install ffmpeg`
-  - **Fedora:** `sudo dnf install ffmpeg`
-  - **Arch:** `sudo pacman -S ffmpeg`
-
 ___
 
 # Build ROSI from source:
+
+### ⚠️ THIS IS THE MICROSOFT STORE VERSION OF ROSI. Building this version is NOT reccomended as it is modified to support the Windows Store. To build the main version, please go to the [main repo](https://github.com/BurntToasters/ROSI).
 
 Download ROSI source code from source (main)
 1) Download zip of release source code (non-release source code are not recommended as they may contain issues not yet fixed for a release).
