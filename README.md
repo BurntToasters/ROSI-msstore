@@ -1,4 +1,7 @@
 # ROSI
+
+[<img src="https://get.microsoft.com/images/en-us%20dark.svg" width="200"/>](https://apps.microsoft.com/detail/9p4q134b2jw3?referrer=appbadge&mode=direct)
+
 ROSI is an Electron GUI for yt-dlp
 
 ### ⚠️ THIS IS THE MICROSOFT STORE VERSION OF ROSI. Extra tweaks are made to this version only to support ROSI being published to the microsoft store. To download the STANDALONE version binaries, please go to the [main repo](https://github.com/BurntToasters/ROSI).
