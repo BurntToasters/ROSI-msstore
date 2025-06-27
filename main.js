@@ -1,4 +1,5 @@
-// --- begin main.js ---
+// main.js
+
 const { app, BrowserWindow, ipcMain, dialog, shell } = require('electron');
 const path = require('path');
 const fs = require('fs');
@@ -43,7 +44,7 @@ const settingsPath = path.join(app.getPath('userData'), 'settings.json');
 const defaultSettings = {
   showConsoleOutput: false,
   advancedOptions: false,
-  convertEnabled: false, 
+  convertEnabled: false,
   convertFormat: "mp4",
   keepOriginalAfterConvert: true,
   firstLaunch: true,
@@ -265,21 +266,15 @@ ipcMain.on('download-video', async (event, options) => {
       let downloadedFilePath = null;
       try {
           const outputLines = downloadOutputData.trim().split('\n');
-          const candidatePaths = outputLines
-            .map(line => line.trim())
-            .filter(line => line && fs.existsSync(line) && fs.lstatSync(line).isFile());
-
-          downloadedFilePath = candidatePaths.pop();
+          downloadedFilePath = outputLines.filter(line => line.trim() !== '').pop();
 
           if (!downloadedFilePath) {
-              throw new Error("Could not find downloaded filepath in yt-dlp output.");
-          }
-          if (!fs.existsSync(downloadedFilePath)) {
-              throw new Error(`Reported file path does not exist: ${downloadedFilePath}`);
+              throw new Error("Could not find a valid filepath in yt-dlp's output.");
           }
           safeSend('progress', `✅ Download finished. Identified file: ${path.basename(downloadedFilePath)}`);
       } catch (extractError) {
           safeSend('progress', `❌ Error determining downloaded file path after download.`);
+          safeSend('progress', `   Error: ${extractError.message}`);
           safeSend('complete', '❌ Failed (File Path Error).');
           return;
       }
