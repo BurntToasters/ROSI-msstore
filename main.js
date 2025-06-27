@@ -4,6 +4,7 @@ const { app, BrowserWindow, ipcMain, dialog, shell } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const { spawn } = require('child_process');
+const sanitize = require('sanitize-filename');
 
 const isWindows = process.platform === 'win32';
 const isMac = process.platform === 'darwin';
@@ -283,12 +284,23 @@ ipcMain.on('download-video', async (event, options) => {
       if (currentSettings.convertEnabled) {
         safeSend('progress', '⏳ Checking if conversion is needed...');
         try {
-          const inputPath = downloadedFilePath;
+          const originalInputPath = downloadedFilePath;
+          const sanitizedFileName = sanitize(path.basename(originalInputPath));
+          const sanitizedInputPath = path.join(path.dirname(originalInputPath), sanitizedFileName);
+
+          // Rename the downloaded file to the sanitized version
+          if (originalInputPath !== sanitizedInputPath) {
+            fs.renameSync(originalInputPath, sanitizedInputPath);
+            safeSend('progress', `Renamed to sanitized filename: ${sanitizedFileName}`);
+          }
+        
+          const inputPath = sanitizedInputPath;
           const inputFileExt = path.extname(inputPath);
           const inputFilename = path.basename(inputPath);
           const targetFormat = currentSettings.convertFormat || "mp4";
           const outputPath = inputPath.replace(/\.[^/.]+$/, `.${targetFormat}`);
           const outputFilename = path.basename(outputPath);
+
 
           // Only convert if not already in target format
           if (inputFileExt.toLowerCase() === `.${targetFormat}`) {
