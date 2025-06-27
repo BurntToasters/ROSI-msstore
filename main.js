@@ -301,7 +301,6 @@ ipcMain.on('download-video', async (event, options) => {
           const outputPath = inputPath.replace(/\.[^/.]+$/, `.${targetFormat}`);
           const outputFilename = path.basename(outputPath);
 
-
           // Only convert if not already in target format
           if (inputFileExt.toLowerCase() === `.${targetFormat}`) {
             safeSend('progress', `ℹ️ Downloaded file is already ${targetFormat.toUpperCase()} (${inputFilename}). Skipping conversion.`);
@@ -314,14 +313,24 @@ ipcMain.on('download-video', async (event, options) => {
           }
 
           safeSend('progress', `🎬 Converting ${inputFilename} to ${targetFormat.toUpperCase()}...`);
-          // Choose ffmpeg args based on format
-          let ffmpegArgs;
-          if (targetFormat === "mp3" || targetFormat === "m4a") {
-            ffmpegArgs = ['-i', inputPath, '-vn', '-c:a', targetFormat === "mp3" ? 'libmp3lame' : 'aac', '-y', outputPath];
+
+          if (isWindows) {
+              let ffmpegCommand;
+              if (targetFormat === "mp3" || targetFormat === "m4a") {
+                ffmpegCommand = `ffmpeg -i "${inputPath}" -vn -c:a ${targetFormat === "mp3" ? 'libmp3lame' : 'aac'} -y "${outputPath}"`;
+              } else {
+                ffmpegCommand = `ffmpeg -i "${inputPath}" -c:v copy -c:a aac -movflags +faststart -y "${outputPath}"`;
+              }
+              ffmpegProcess = spawn(ffmpegCommand, { shell: true });
           } else {
-            ffmpegArgs = ['-i', inputPath, '-c:v', 'copy', '-c:a', 'aac', '-movflags', '+faststart', '-y', outputPath];
+              let ffmpegArgs;
+              if (targetFormat === "mp3" || targetFormat === "m4a") {
+                ffmpegArgs = ['-i', inputPath, '-vn', '-c:a', targetFormat === "mp3" ? 'libmp3lame' : 'aac', '-y', outputPath];
+              } else {
+                ffmpegArgs = ['-i', inputPath, '-c:v', 'copy', '-c:a', 'aac', '-movflags', '+faststart', '-y', outputPath];
+              }
+              ffmpegProcess = spawn('ffmpeg', ffmpegArgs);
           }
-          ffmpegProcess = spawn('ffmpeg', ffmpegArgs);
 
           let ffmpegOutput = '';
           ffmpegProcess.stdout.on('data', (data) => {
