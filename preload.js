@@ -6,6 +6,9 @@ console.log("✅ PRELOAD IS RUNNING!");
 contextBridge.exposeInMainWorld('api', {
   // send toggle mp4 convert (not always used)
   convertToMp4: (value) => ipcRenderer.send('toggle-convert-mp4'),
+  
+  // restart the application
+  restartApp: () => ipcRenderer.invoke('restart-app'),
 
   // get available formats for a url
   getFormats: (url) => ipcRenderer.invoke('getFormats', url),
@@ -50,6 +53,9 @@ contextBridge.exposeInMainWorld('api', {
   onComplete: (callback) => {
     const listener = (_, message) => callback(message);
     ipcRenderer.on('complete', listener);
-  }
+  },
+
+  // This is a temporary function for the beta UI
+  openBetaWindow: () => ipcRenderer.send('open-beta-window')
 });
 // --- end preload.js ---

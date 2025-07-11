@@ -41,6 +41,8 @@ if (!fs.existsSync(ytdlpPath)) {
     app.quit();
 }
 
+ipcMain.handle('get-app-version', () => app.getVersion());
+
 const settingsPath = path.join(app.getPath('userData'), 'settings.json');
 const defaultSettings = {
   showConsoleOutput: false,
@@ -130,6 +132,33 @@ ipcMain.on('reset-settings', (event) => {
   app.exit();
 });
 
+// ⚠️ THIS CODE IS TEMPORARY AND WILL BE REMOVED IN THE FUTURE
+ipcMain.on('open-beta-window', () => {
+  const isDev = process.env.NODE_ENV === 'development' || process.argv.includes('--dev');
+  const betaWindow = new BrowserWindow({
+    width: 1000,
+    height: 700,
+    icon: path.join(__dirname, 'app.png'),
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js'),
+      contextIsolation: true,
+      nodeIntegration: false,
+      spellcheck: false,
+      devTools: isDev,
+    }
+  });
+  betaWindow.loadFile('beta-redesign.html');
+  const showMenu = process.argv.includes('--show-menu');
+  betaWindow.setMenuBarVisibility(showMenu);
+  betaWindow.setAutoHideMenuBar(!showMenu);
+  
+  
+  if (mainWindow) {
+    mainWindow.close();
+  }
+});
+//END TEMPORARY CODE
+
 // open external links in browser
 ipcMain.on('open-external', (_, url) => {
     if (url && typeof url === 'string' && (url.startsWith('http:') || url.startsWith('https:'))) {
@@ -139,8 +168,9 @@ ipcMain.on('open-external', (_, url) => {
 
 // open folder dialog for download location
 ipcMain.handle('select-download-location', async () => {
-  if (!mainWindow) return null;
-  const { canceled, filePaths } = await dialog.showOpenDialog(mainWindow, {
+  const focusedWindow = BrowserWindow.getFocusedWindow();
+  if (!focusedWindow) return null;
+  const { canceled, filePaths } = await dialog.showOpenDialog(focusedWindow, {
     title: 'Select Download Folder',
     properties: ['openDirectory', 'createDirectory']
   });
@@ -429,6 +459,11 @@ ipcMain.on('cancel-download', () => {
       mainWindow.webContents.send('progress', '⏹️ Download/Conversion cancelled by user.');
       mainWindow.webContents.send('complete', '⏹️ Cancelled.');
   }
+});
+
+ipcMain.handle('restart-app', () => {
+  app.relaunch();
+  app.exit(0);
 });
 
 // --- End main.js ---
