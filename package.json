@@ -1,12 +1,14 @@
 {
   "name": "rosi",
-  "version": "1.1.9",
+  "version": "1.1.10",
   "description": "Electron GUI for yt-dlp",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "electron": "electron .",
-    "build": "electron-builder"
+    "build": "electron-builder",
+    "build:win-x64": "node build-scripts/prepare-x64.js && electron-builder --win --x64 -c.win.target=appx",
+    "build:win-arm64": "node build-scripts/prepare-arm64.js && electron-builder --win --arm64 -c.win.target=appx"
   },
   "repository": {
     "type": "git",
@@ -43,12 +45,15 @@
     "win": {
       "target": [
         "nsis",
-        "appx"
+        {
+          "target": "appx",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
       ],
-      "icon": "build/app-icon.png",
-      "asarUnpack": [
-        "yt-dlp.exe"
-      ]
+      "icon": "build/app-icon.png"
     },
     "appx": {
       "identityName": "BurntToasters.ROSI",
@@ -58,7 +63,8 @@
       "backgroundColor": "#ffffff",
       "minVersion": "10.0.10240.0",
       "maxVersionTested": "10.0.22621.0",
-      "customManifestPath": "build/appx/appxmanifest.xml"
+      "customManifestPath": "build/appx/appxmanifest.xml",
+      "artifactName": "ROSI-${version}-${arch}.${ext}"
     },
     "mac": {
       "target": "dmg",
@@ -98,6 +104,9 @@
         "width": 648,
         "height": 480
       }
-    }
+    },
+    "asarUnpack": [
+      "yt-dlp_arm64.exe"
+    ]
   }
 }
