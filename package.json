@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/BurntToasters/rosi.git"
+    "url": "git+https://github.com/BurntToasters/rosi-msstore.git"
   },
   "author": "BurntToasters <code@rosie.run>",
   "license": "MPL-2.0",
   "bugs": {
-    "url": "https://github.com/BurntToasters/rosi/issues"
+    "url": "https://github.com/BurntToasters/rosi-msstore/issues"
   },
-  "homepage": "https://github.com/BurntToasters/rosi#readme",
+  "homepage": "https://github.com/BurntToasters/rosi-msstore#readme",
   "devDependencies": {
     "electron": "^37.2.1",
     "electron-builder": "^26.0.12",
