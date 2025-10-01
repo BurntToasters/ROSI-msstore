@@ -510,11 +510,6 @@
       downloadBtn.onclick = downloadBtn._originalClick;
     }
 
-    // check for updates button click
-    if (checkUpdateBtn) {
-      checkUpdateBtn.onclick = checkForUpdates;
-    }
-
     // output listeners for progress and completion
     window.api.onProgress((message) => {
       if (!outputEl) return;
