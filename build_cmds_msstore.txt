@@ -1,2 +1,2 @@
-npm run build:win-x64
-npm run build:win-arm64
+npm run build:win:x64
+npm run build:win:arm64
