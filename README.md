@@ -1,5 +1,7 @@
 # ROSI
 
+# ⚠️ THIS REPO HAS BEEN ARCHIVED AS THE CODEBASE FOR ROSI-MSSTORE HAS BEEN MOVED TO THE MAIN REPO UNDER THE [MS-STORE BRANCH](https://github.com/BurntToasters/ROSI/tree/ms-store).
+
 [<img src="https://get.microsoft.com/images/en-us%20dark.svg" width="200"/>](https://apps.microsoft.com/detail/9p4q134b2jw3?referrer=appbadge&mode=direct)
 
 ROSI is an Electron GUI for yt-dlp
